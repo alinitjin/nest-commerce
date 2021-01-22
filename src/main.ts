@@ -1,0 +1,17 @@
+import 'dotenv/config';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+
+
+if (process.env.APP_ENV === "test") {
+  process.env.MONGO_URI = process.env.MONGO_URI_TEST;
+  console.log('------ TESTING IN PROGRESS ------');
+}
+
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  // app.setGlobalPrefix('api');
+
+  await app.listen(process.env.PORT || 3000);
+}
+bootstrap();
